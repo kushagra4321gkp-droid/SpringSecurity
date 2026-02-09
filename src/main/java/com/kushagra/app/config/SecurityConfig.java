@@ -15,8 +15,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        //using lambda
+        //(1)Imperative(Normal) style --> Long Code
 
+        //(2)using lambda
         http.csrf(customizer -> customizer.disable());
         http.authorizeHttpRequests(request -> request.anyRequest().authenticated());
         //http.formLogin(Customizer.withDefaults());
