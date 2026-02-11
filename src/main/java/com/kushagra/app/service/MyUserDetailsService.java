@@ -2,6 +2,7 @@ package com.kushagra.app.service;
 
 import com.kushagra.app.dao.UserRapo;
 import com.kushagra.app.model.User;
+import com.kushagra.app.model.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +24,6 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User 404");
         }
 
-        return null;
+        return new UserPrincipal(user);
     }
 }
