@@ -1,4 +1,4 @@
-package com.kushagra.app;
+package com.kushagra.app.model;
 
 public class Student {
 
