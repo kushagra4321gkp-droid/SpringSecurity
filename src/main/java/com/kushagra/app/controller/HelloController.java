@@ -1,4 +1,4 @@
-package com.kushagra.app.config;
+package com.kushagra.app.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
