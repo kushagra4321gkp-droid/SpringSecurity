@@ -1,6 +1,7 @@
 package com.kushagra.app.controller;
 
 import com.kushagra.app.model.User;
+import com.kushagra.app.service.JwtService;
 import com.kushagra.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,9 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtService jwtService;
+
     @PostMapping("register")
     public User register(@RequestBody User user){
         return service.saveUser(user);
@@ -32,7 +36,7 @@ public class UserController {
 
 
         if(authentication.isAuthenticated())
-            return "Success";
+            return jwtService.generateToken(user.getUsername());
         else
             return "login Failed";
     }
