@@ -15,10 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -42,10 +46,11 @@ public class SecurityConfig {
                         .requestMatchers("register", "login")
                         .permitAll()
                         .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authProvider());  // ✅ register provider
+                .authenticationProvider(authProvider())
+                .addFilterBefore(jwtFilter,
+                        UsernamePasswordAuthenticationFilter.class); // 🔥 ADD HERE
 
         return http.build();
     }
